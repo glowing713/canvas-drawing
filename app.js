@@ -12,6 +12,7 @@ class App {
       coors: [],
     };
     this.canvas.onmousedown = this.mouseDownHandler.bind(this);
+    this.canvas.ontouchstart = this.mouseDownHandler.bind(this); // mobile
     requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -29,11 +30,17 @@ class App {
   mouseDownHandler() {
     this.canvas.onmousemove = this.throttleCreateCircle.bind(this);
     this.canvas.onmouseup = this.cleanUpHandler.bind(this);
+    //mobile
+    this.canvas.ontouchmove = this.throttleCreateCircle.bind(this);
+    this.canvas.ontouchend = this.cleanUpHandler.bind(this);
   }
 
   cleanUpHandler() {
     this.canvas.onmousemove = null;
     this.canvas.onmouseup = null;
+    //mobile
+    this.canvas.ontouchmove = null;
+    this.canvas.ontouchend = null;
   }
 
   throttleCreateCircle(e) {
