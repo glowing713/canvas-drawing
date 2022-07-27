@@ -1,4 +1,5 @@
 import Circle from './circle.js';
+import { generateRandomColor } from './util.js';
 
 class App {
   constructor() {
@@ -44,14 +45,14 @@ class App {
   }
 
   throttleCreateCircle(e) {
-    const delay = 15;
+    const delay = 3;
+    const radius = 200;
+    const [x, y] = [e.offsetX ?? e.touches[0].clientX, e.offsetY ?? e.touches[0].clientY];
 
     if (this.circles.wait) return;
 
     setTimeout(() => {
-      this.circles.coors.push(
-        new Circle(e.offsetX ?? e.touches[0].clientX, e.offsetY ?? e.touches[0].clientY, 100, this.ctx)
-      );
+      this.circles.coors.push(new Circle(x, y, radius, generateRandomColor(), this.ctx));
       this.circles.wait = false;
     }, delay);
 
@@ -60,15 +61,18 @@ class App {
 
   animate() {
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-    this.circles.coors.forEach(circle => {
-      // 사용자가 추가한 원 그리기
-      circle.draw();
-    });
-    this.reduceCircles(1); // 속도에 따라 원 크기 줄이기
-    this.circles.coors = this.circles.coors.filter(circle => {
-      // 반지름이 0인 원 제거
-      return circle.radius > 0;
-    });
+
+    this.circles.coors = this.circles.coors.reduce((acc, circle) => {
+      // 원을 그리고 반지름이 0보다 작은 원은 제거
+      if (circle.radius > 0) {
+        circle.draw();
+        acc.push(circle);
+      }
+      return acc;
+    }, []);
+
+    this.reduceCircles(5); // 속도에 따라 원 크기 줄이기
+
     requestAnimationFrame(this.animate.bind(this));
   }
 
