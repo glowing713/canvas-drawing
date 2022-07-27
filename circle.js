@@ -18,7 +18,8 @@ export default class Circle {
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    this.ctx.fillStyle = this.generateRandomColor();
+    // this.ctx.fillStyle = this.generateRandomColor();
+    this.ctx.fillStyle = "rgb(171, 201, 255)";
     this.ctx.fill();
   }
 }
