@@ -11,6 +11,7 @@ class App {
     this.circles = {
       wait: false,
       coors: [],
+      colorPick: '',
     };
     this.canvas.onmousedown = this.mouseDownHandler.bind(this);
     this.canvas.ontouchstart = this.mouseDownHandler.bind(this); // mobile
@@ -29,6 +30,7 @@ class App {
   }
 
   mouseDownHandler() {
+    this.circles.colorPick = generateRandomColor();
     this.canvas.onmousemove = this.throttleCreateCircle.bind(this);
     this.canvas.onmouseup = this.cleanUpHandler.bind(this);
     //mobile
@@ -52,7 +54,7 @@ class App {
     if (this.circles.wait) return;
 
     setTimeout(() => {
-      this.circles.coors.push(new Circle(x, y, radius, generateRandomColor(), this.ctx));
+      this.circles.coors.push(new Circle(x, y, radius, this.circles.colorPick, this.ctx));
       this.circles.wait = false;
     }, delay);
 
