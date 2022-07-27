@@ -49,7 +49,9 @@ class App {
     if (this.circles.wait) return;
 
     setTimeout(() => {
-      this.circles.coors.push(new Circle(e.offsetX, e.offsetY, 100, this.ctx));
+      this.circles.coors.push(
+        new Circle(e.offsetX ?? e.touches[0].clientX, e.offsetY ?? e.touches[0].clientY, 100, this.ctx)
+      );
       this.circles.wait = false;
     }, delay);
 
