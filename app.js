@@ -1,11 +1,11 @@
-import Circle from "./circle.js";
+import Circle from './circle.js';
 
 class App {
   constructor() {
-    this.canvas = document.getElementById("canvas");
-    this.ctx = this.canvas.getContext("2d");
+    this.canvas = document.getElementById('canvas');
+    this.ctx = this.canvas.getContext('2d');
     this.resize(); // retina display에 맞춰서 화면 비율 2배
-    window.addEventListener("resize", this.resize.bind(this)); // window resize에 따라 화면 비율 유지
+    window.addEventListener('resize', this.resize.bind(this)); // window resize에 따라 화면 비율 유지
 
     this.circles = {
       wait: false,
@@ -51,12 +51,12 @@ class App {
 
   animate() {
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-    this.circles.coors.forEach((circle) => {
+    this.circles.coors.forEach(circle => {
       // 사용자가 추가한 원 그리기
       circle.draw();
     });
     this.reduceCircles(1); // 속도에 따라 원 크기 줄이기
-    this.circles.coors = this.circles.coors.filter((circle) => {
+    this.circles.coors = this.circles.coors.filter(circle => {
       // 반지름이 0인 원 제거
       return circle.radius > 0;
     });
@@ -64,7 +64,7 @@ class App {
   }
 
   reduceCircles(speed) {
-    this.circles.coors.forEach((circle) => {
+    this.circles.coors.forEach(circle => {
       circle.radius -= speed;
     });
   }
