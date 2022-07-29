@@ -47,24 +47,14 @@ class App {
   }
 
   throttleCreateCircle(e) {
-    const delay = 2;
-    const radius = Math.floor(300 * Math.random());
-    const [weightX, weightY] = [
-      Math.floor(Math.random() * 200) + 100 * Math.round(Math.random() > 0.5 ? 1 : -1),
-      Math.floor(Math.random() * 200) + 100 * Math.round(Math.random() > 0.5 ? 1 : -1),
-    ];
-    const sideRadius = Math.floor(Math.random() * 10);
-    const sidesCnt = Math.floor(Math.random() * 15);
+    const delay = 1;
+    const radius = 100;
     const [x, y] = [e.offsetX ?? e.touches[0].clientX, e.offsetY ?? e.touches[0].clientY];
 
     if (this.circles.wait) return;
 
     setTimeout(() => {
       this.circles.coors.push(new Circle(x, y, radius, this.circles.colorPick, this.ctx));
-      // 주변부 원 생성
-      for (let i = 0; i < sidesCnt; i++) {
-        this.circles.coors.push(new Circle(x + weightX, y + weightY, sideRadius, this.circles.colorPick, this.ctx));
-      }
       this.circles.wait = false;
     }, delay);
 
