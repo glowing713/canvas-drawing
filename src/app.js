@@ -1,17 +1,17 @@
-import Circle from './circle.js';
-import { generateRandomColor } from './util.js';
+import Circle from "./circle.js";
+import { generateRandomColor } from "./util.js";
 
-class App {
+export default class App {
   constructor() {
-    this.canvas = document.getElementById('canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvas = document.getElementById("canvas");
+    this.ctx = this.canvas.getContext("2d");
     this.resize(); // retina display에 맞춰서 화면 비율 2배
-    window.addEventListener('resize', this.resize.bind(this)); // window resize에 따라 화면 비율 유지
+    window.addEventListener("resize", this.resize.bind(this)); // window resize에 따라 화면 비율 유지
 
     this.circles = {
       wait: false,
       coors: [],
-      colorPick: '',
+      colorPick: "",
     };
     this.canvas.onmousedown = this.mouseDownHandler.bind(this);
     this.canvas.ontouchstart = this.mouseDownHandler.bind(this); // mobile
@@ -49,12 +49,17 @@ class App {
   throttleCreateCircle(e) {
     const delay = 1;
     const radius = 100;
-    const [x, y] = [e.offsetX ?? e.touches[0].clientX, e.offsetY ?? e.touches[0].clientY];
+    const [x, y] = [
+      e.offsetX ?? e.touches[0].clientX,
+      e.offsetY ?? e.touches[0].clientY,
+    ];
 
     if (this.circles.wait) return;
 
     setTimeout(() => {
-      this.circles.coors.push(new Circle(x, y, radius, this.circles.colorPick, this.ctx));
+      this.circles.coors.push(
+        new Circle(x, y, radius, this.circles.colorPick, this.ctx)
+      );
       this.circles.wait = false;
     }, delay);
 
@@ -79,10 +84,8 @@ class App {
   }
 
   reduceCircles(speed) {
-    this.circles.coors.forEach(circle => {
+    this.circles.coors.forEach((circle) => {
       circle.radius -= speed;
     });
   }
 }
-
-new App();
