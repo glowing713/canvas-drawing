@@ -1,10 +1,12 @@
-import Circle from "./circle.js";
-import { generateRandomColor } from "./util.js";
+import Circle from "./objects/circle";
+import { generateRandomColor } from "./utils";
 
 export default class App {
   constructor() {
-    this.canvas = document.getElementById("canvas");
+    this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d");
+    document.body.appendChild(this.canvas);
+
     this.resize(); // retina display에 맞춰서 화면 비율 2배
     window.addEventListener("resize", this.resize.bind(this)); // window resize에 따라 화면 비율 유지
 

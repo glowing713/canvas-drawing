@@ -1,3 +1,6 @@
-import App from "./app.js";
+import App from "./app";
+import "./styles/index.css";
 
-new App();
+window.onload = function () {
+  new App();
+};
